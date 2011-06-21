@@ -54,18 +54,18 @@ EOT
 
   s.files = files
 
-# if File.exists?('./bin')
-#   $stderr.puts "BINs"
-#   executables = []
-#   Find.find('./bin'){|fn|
-#     if File.file?(fn) then
-#       $stderr.puts fn
-#       executables.push(fn.sub(/^.*\//,''))
-#     end
-#   }
-#   s.executables = executables
-#   s.default_executable = project
-# end
+ if File.exists?('./bin')
+   $stderr.puts "BINs"
+   executables = []
+   Find.find('./bin'){|fn|
+     if File.file?(fn) then
+       $stderr.puts fn
+       executables.push(fn.sub(/^.*\//,''))
+     end
+   }
+   s.executables = executables
+   s.default_executable = project
+ end
 
 # s.add_dependency('gtk2applib','~> 15.3')
 # s.add_dependency('youtuber','~> 1.6')

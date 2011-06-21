@@ -25,3 +25,4 @@ writer.close
 readers.each{|reader| reader.close}
 
 # Also available, Shredder.shred( writer, readers) and Shredder.sew( reader, writers )
+# and a command line utility, shredder (run shredder --help for more info).
