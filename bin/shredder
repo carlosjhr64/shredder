@@ -15,8 +15,9 @@ shredder      --shred sewed_file shred_file1 shred_file2...  # shred a file to s
 shredder --io --shred            shred_file1 shred_file2...  # shred stdin to shreds
 shredder      --sew   sewed_file shred_file1 shred_file2...  # sew shreds back to file
 shredder --io --sew              shred_file1 shred_file2...  # sew shreds out to stdout
+# --relay in sew mode will relay the first gets from stdin (used to pass on a passphrase to gpg, for example).
 EOT
-    print "VERSION: "
+    print "# VERSION: "
     ShredderCommandLine.version
   end
 
@@ -38,7 +39,8 @@ EOT
 
   def initialize
     options = ShredderCommandLine.parse_argv
-    @shredding = (options=~/--shred/)? true : false
+    @shredding = (options=~/--shred\b/)? true : false
+    @relay = (options=~/--relay\b/)? true : false
     if options=~/--io/ then
       if @shredding then
         @sew = $stdin
@@ -56,7 +58,15 @@ EOT
   def execute
     shredder = (@sew.class == String)? Shredder::Files.new(@sew,@shreds): Shredder::Streams.new(@sew,@shreds)
     begin
-      (@shredding)? shredder.shred : shredder.sew
+      if @shredding then
+        shredder.shred
+      else
+        if @relay && (passphrase = $stdin.gets) then
+          # In a typical situation, we may be asked to relay a passphrase
+          $stdout.puts passphrase
+        end
+        shredder.sew
+      end
     rescue StandardError
       $stderr.puts $!
     ensure
