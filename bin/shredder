@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+require 'shredder'
+
+# Command line utility
+class ShredderCommandLine
+  def self.parse_argv
+    options = ''
+    while ARGV[0]=~/^-/ do
+      options += ARGV.shift
+    end
+    # validate
+    raise "--sew or --shred ?" if !(options=~/--sew\b/) && !(options=~/--shred\b/)
+    length = ARGV.length
+    raise "Expected sew shred1 shred2 ..."	if length < 3 && !(options=~/--io\b/)
+    raise "Expected shred1 shred2..."		if length < 2
+    return options
+  end
+
+  def initialize
+    options = ShredderCommandLine.parse_argv
+    @shredding = (options=~/--shred/)? true : false
+    if options=~/--io/ then
+      if @shredding then
+        @sew = $stdin
+        @shreds = ARGV.map{|filename| File.open(filename,'w')} # WRITE SHREDS
+      else
+        @sew = $stdout
+        @shreds = ARGV.map{|filename| File.open(filename,'r')} # READ SHREDS
+      end
+    else
+      @sew = ARGV.shift
+      @shreds = ARGV
+    end
+  end
+
+  def execute
+    shredder = Shredder::Files.new(@sew,@shreds)
+    begin
+      (@shredding)? shredder.shred : shredder.sew
+    rescue Exception
+      $stderr.puts $!
+    ensure
+      @shreds.each{|filehandle| filehandle.close}	if !(@sew.class == String)
+    end
+  end
+end
+
+begin
+  ShredderCommandLine.new.execute
+rescue Exception
+  $stderr.puts $!
+end
