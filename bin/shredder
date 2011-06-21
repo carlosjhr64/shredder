@@ -8,6 +8,7 @@ class ShredderCommandLine
     while ARGV[0]=~/^-/ do
       options += ARGV.shift
     end
+    $verbose = (options=~/-v\b/)? true : false
     # validate
     raise "--sew or --shred ?" if !(options=~/--sew\b/) && !(options=~/--shred\b/)
     length = ARGV.length
@@ -34,7 +35,7 @@ class ShredderCommandLine
   end
 
   def execute
-    shredder = Shredder::Files.new(@sew,@shreds)
+    shredder = (@sew.class == String)? Shredder::Files.new(@sew,@shreds): Shredder::Streams.new(@sew,@shreds)
     begin
       (@shredding)? shredder.shred : shredder.sew
     rescue Exception
@@ -49,4 +50,5 @@ begin
   ShredderCommandLine.new.execute
 rescue Exception
   $stderr.puts $!
+  $stderr.puts $!.backtrace if $verbose
 end
