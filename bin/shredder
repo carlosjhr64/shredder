@@ -11,10 +11,10 @@ class ShredderCommandLine
 
   def self.help
     puts <<EOT
-shredder      --shred sewed_file shred_file1 shread_file2...  # shred a file to shreds
-shredder --io --shred            shred_file1 shread_file2...  # shred stdin to shreds
-shredder      --sew   sewed_file shred_file1 shread_file2...  # sew shreds back to file
-shredder --io --sew              shred_file1 shread_file2...  # sew shreds out to stdout
+shredder      --shred sewed_file shred_file1 shred_file2...  # shred a file to shreds
+shredder --io --shred            shred_file1 shred_file2...  # shred stdin to shreds
+shredder      --sew   sewed_file shred_file1 shred_file2...  # sew shreds back to file
+shredder --io --sew              shred_file1 shred_file2...  # sew shreds out to stdout
 EOT
     print "VERSION: "
     ShredderCommandLine.version

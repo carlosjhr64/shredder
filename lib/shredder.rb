@@ -1,5 +1,5 @@
 module Shredder
-  VERSION = '0.1.0'
+  VERSION = '0.1.1'
 
   # note that these are streams
   def self.shred(reader,writers,limit=0)
