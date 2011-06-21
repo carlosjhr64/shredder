@@ -3,7 +3,7 @@ require 'shredder'
 raise "Need Shredder version ~> 0.1" if Shredder::VERSION < '0.1'
 
 # Command line utility
-class ShredderCommandLine
+class CommandLine
   def self.version
     puts Shredder::VERSION
     exit(0)
@@ -18,7 +18,7 @@ shredder --io --sew              shred_file1 shred_file2...  # sew shreds out to
 # --relay in sew mode will relay the first gets from stdin (used to pass on a passphrase to gpg, for example).
 EOT
     print "# VERSION: "
-    ShredderCommandLine.version
+    CommandLine.version
   end
 
   def self.parse_argv
@@ -26,8 +26,8 @@ EOT
     while ARGV[0]=~/^-/ do
       options += ARGV.shift
     end
-    ShredderCommandLine.version if options =~ /-v\b/ || options =~ /--version\b/ # need to allow verbose below.
-    ShredderCommandLine.help if ARGV.length==0 || options =~ /-h/
+    CommandLine.version if options =~ /-v\b/ || options =~ /--version\b/ # need to allow verbose below.
+    CommandLine.help if ARGV.length==0 || options =~ /-h/
     $verbose = (options=~/--verbose\b/)? true : false
     # validate
     raise "--sew or --shred ?" if !(options=~/--sew\b/) && !(options=~/--shred\b/)
@@ -38,7 +38,7 @@ EOT
   end
 
   def initialize
-    options = ShredderCommandLine.parse_argv
+    options = CommandLine.parse_argv
     @shredding = (options=~/--shred\b/)? true : false
     @relay = (options=~/--relay\b/)? true : false
     if options=~/--io/ then
@@ -69,6 +69,7 @@ EOT
       end
     rescue StandardError
       $stderr.puts $!
+      $stderr.puts $!.backtrace if $verbose
     ensure
       @shreds.each{|filehandle| filehandle.close}	if !(@sew.class == String)
     end
@@ -76,7 +77,7 @@ EOT
 end
 
 begin
-  ShredderCommandLine.new.execute
+  CommandLine.new.execute
 rescue StandardError
   $stderr.puts $!
   $stderr.puts $!.backtrace if $verbose
