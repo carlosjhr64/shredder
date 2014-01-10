@@ -1,5 +1,6 @@
+Manifest.txt
 README.rdoc
-TODO
+TODO.txt
 bin/shredder
 lib/shredder.rb
 lib/shredder/files.rb
@@ -8,3 +9,4 @@ lib/shredder/shredder.rb
 lib/shredder/streams.rb
 lib/shredder/version.rb
 project.gemspec
+shredder.gemspec

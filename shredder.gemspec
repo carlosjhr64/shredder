@@ -27,8 +27,9 @@ SUMMARY
 
   s.require_paths = ["lib"]
   s.files = %w(
+Manifest.txt
 README.rdoc
-TODO
+TODO.txt
 bin/shredder
 lib/shredder.rb
 lib/shredder/files.rb
@@ -37,6 +38,7 @@ lib/shredder/shredder.rb
 lib/shredder/streams.rb
 lib/shredder/version.rb
 project.gemspec
+shredder.gemspec
   )
   s.executables << 'shredder'
   s.add_runtime_dependency 'help_parser', '~> 1.1', '>= 1.1.0'
