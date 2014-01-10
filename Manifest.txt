@@ -1,0 +1,10 @@
+README.rdoc
+TODO
+bin/shredder
+lib/shredder.rb
+lib/shredder/files.rb
+lib/shredder/functions.rb
+lib/shredder/shredder.rb
+lib/shredder/streams.rb
+lib/shredder/version.rb
+project.gemspec

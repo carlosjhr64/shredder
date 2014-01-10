@@ -1,5 +1,3 @@
-TODO
+== TODO
 
 	shredder command should look like gpg in it's use of --force
-
-DONE
