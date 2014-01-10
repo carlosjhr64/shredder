@@ -37,7 +37,6 @@ lib/shredder/functions.rb
 lib/shredder/shredder.rb
 lib/shredder/streams.rb
 lib/shredder/version.rb
-project.gemspec
 shredder.gemspec
   )
   s.executables << 'shredder'
