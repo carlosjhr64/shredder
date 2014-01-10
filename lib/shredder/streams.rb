@@ -1,18 +1,23 @@
-module Shredder
+module SHREDDER
+
   class Streams
+    extend Functions 
+
     # this one takes streams
-    def initialize(sew,shreds,limit=0)
-      @sew = sew
+    def initialize(sew, shreds, limit=0)
+      @sew    = sew
       @shreds = shreds
-      @limit = limit
+      @limit  = limit
     end
 
     def shred(limit=@limit)
-      Shredder.shred(@sew,@shreds,limit)
+      Streams.shred(@sew,@shreds,limit)
     end
 
     def sew(limit=@limit)
-      Shredder.sew(@sew,@shreds,limit)
+      Streams.sew(@sew,@shreds,limit)
     end
+
   end
+
 end
