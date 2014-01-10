@@ -27,7 +27,6 @@ SUMMARY
 
   s.require_paths = ["lib"]
   s.files = %w(
-Manifest.txt
 README.rdoc
 TODO.txt
 bin/shredder
