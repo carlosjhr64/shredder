@@ -95,7 +95,7 @@ class TestShredder < Test::Unit::TestCase
   # Shredder.new(...).execute is well tested.
   # Now test Shredder.new.shred and #sew
   def test_shredder
-    system('rm ./temp.*')
+    system('rm ./temp.* 2> /dev/null')
     refute File.exist? './temp.sewed' # just a quick sanity check
     system('openssl rand -base64 32 > ./temp.txt')
     shredder = Shredder.new
