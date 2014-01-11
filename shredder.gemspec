@@ -30,6 +30,8 @@ SUMMARY
 README.rdoc
 TODO.txt
 bin/shredder
+features/main.feature
+features/step_definitions/main_steps.rb
 lib/shredder.rb
 lib/shredder/files.rb
 lib/shredder/functions.rb
@@ -41,5 +43,7 @@ shredder.gemspec
   s.executables << 'shredder'
   s.add_runtime_dependency 'help_parser', '~> 1.1', '>= 1.1.0'
   s.requirements << 'ruby: ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]'
+  s.requirements << 'bash in development: GNU bash, version 4.2.25(1)-release (x86_64-pc-linux-gnu)'
+  s.requirements << 'system in development: linux/bash'
 
 end

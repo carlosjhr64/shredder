@@ -4,4 +4,6 @@
 
 == File List
 
+TODO:	Need to test against symmetric_gpg
+	features/main.feature, #74
 
