@@ -5,6 +5,13 @@ require 'open3'
 
 H = {}
 
+def _capture3(command)
+  stdout, stderr, status = Open3.capture3(command)
+  H['status'] = status.exitstatus
+  H['stdout'] = stdout.chomp
+  H['stderr'] = stderr.chomp
+end
+
 def _given(condition)
   case condition
   when /^(\w+) "([^"]*)"$/
@@ -21,10 +28,9 @@ def _when(condition)
   when 'run'
     command, arguments = H['command'], H['arguments']
     raise 'Need command and argurments to run' unless command and arguments
-    stdout, stderr, status = Open3.capture3("#{command} #{arguments}")
-    H['status'] = status.exitstatus
-    H['stdout'] = stdout.chomp
-    H['stderr'] = stderr.chomp
+    _capture3("#{command} #{arguments}")
+  when /^run\(([^\(\)]*)\)$/
+    _capture3($1)
   else
     raise "Unrecognized When-Statement"
   end
@@ -36,17 +42,19 @@ def _then(condition)
     neg, cmd = $1, $2
     ok = system(cmd)
     ok = !ok if neg
-    raise "Sytem Call Error" unless ok
-  when /^(\w+) is( not)? "([^"]*)"$/
-    key, negate, expected = $1, $2, $3
+    raise "System Call Error" unless ok
+  when /^(\w+) (\w+)( not)? "([^"]*)"$/
+    key, cmp, negate, expected = $1, $2, $3, $4
     actual = H[key].to_s
-    ok = (actual == expected)
-    ok = !ok if negate
-    raise "Got #{actual} for #{key}" unless ok
-  when /^(\w+) matches "([^"]*)"$/
-    key, expected = $1, Regexp.new($2)
-    actual = H[key].to_s
-    ok = (actual =~ expected)
+    ok = case cmp
+    when 'is'
+      actual == expected
+    when 'matches'
+      expected = Regexp.new(expected)
+      actual =~ expected
+    else
+      raise "Unrecognized Comparison Operator"
+    end
     ok = !ok if negate
     raise "Got #{actual} for #{key}" unless ok
   else
