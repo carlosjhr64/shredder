@@ -11,13 +11,17 @@ NAME = File.basename $0 # Program Name
 HELP = <<HELP
 Usage: #{NAME} [options] [file] shred1 shred2...
 Options:
-  -r --shred     shred a file to shreds
-  -w --sew       sew shreds back to file
-  -s --io        shreds/sews from/to stdin/stdout respectively
-  --relay        relay first stdin gets to stdout puts
+  -r --shred     Shred a file to shreds.
+  -w --sew       Sew shreds back to file.
+  -s --io        Shreds/sews from/to stdin/stdout respectively.
+  --relay        Relay first stdin gets to stdout puts.
 
-  -h --help      Puts this help and exits
-  -v --version   Puts version and exits
+  -h --help      Puts this help and exits.
+  -v --version   Puts version and exits.
+
+  -f --force     These are not implemented yet,
+  --yes          but are defined to provide
+  --no           a symmetry with commands like gpg.
 Note:
   Typical use of relay is for passphrase.
 Version: #{VERSION}

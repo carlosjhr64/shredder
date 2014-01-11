@@ -70,5 +70,3 @@ Feature: Main Features
 
     # Let's clean up after ourselves...
     * Given system(rm ./temp.* 2> /dev/null)
-
-    # TODO: Need to test against symmetric_gpg
