@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.author   = 'CarlosJHR64'
   s.email    = 'carlosjhr64@gmail.com'
 
-  s.date     = '2014-01-10'
+  s.date     = '2014-01-11'
   s.licenses = ['MIT']
 
   s.description = <<DESCRIPTION
@@ -39,11 +39,15 @@ lib/shredder/shredder.rb
 lib/shredder/streams.rb
 lib/shredder/version.rb
 shredder.gemspec
+test/test_shredder.rb
   )
   s.executables << 'shredder'
   s.add_runtime_dependency 'help_parser', '~> 1.1', '>= 1.1.0'
+  s.add_development_dependency 'test-unit', '~> 2.5', '>= 2.5.5'
   s.requirements << 'ruby: ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]'
   s.requirements << 'bash in development: GNU bash, version 4.2.25(1)-release (x86_64-pc-linux-gnu)'
   s.requirements << 'system in development: linux/bash'
+  s.requirements << 'rm in development: rm (GNU coreutils) 8.13'
+  s.requirements << 'diff in development: diff (GNU diffutils) 3.2'
 
 end
