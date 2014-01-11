@@ -13,7 +13,7 @@ Usage: #{NAME} [options] [file] shred1 shred2...
 Options:
   -r --shred     shred a file to shreds
   -w --sew       sew shreds back to file
-  -s --stream    shreds/sews from/to stdin/stdout respectively
+  -s --io        shreds/sews from/to stdin/stdout respectively
   --relay        relay first stdin gets to stdout puts
 
   -h --help      Puts this help and exits
@@ -28,7 +28,7 @@ begin
   OPTIONS.defaults!(:shred, false, true)
   OPTIONS.defaults!(:sew,   false, true)
   OPTIONS.usage_error "Need choice: sew or shred?" unless OPTIONS[:sew] ^ OPTIONS[:shred] # xor
-  MIN = (OPTIONS[:stream])? 2 : 3
+  MIN = (OPTIONS[:io])? 2 : 3
   OPTIONS.usage_error "Need at least 2 shreds" unless ARGV.length >= MIN
   Shredder.new(OPTIONS, ARGV).execute
 rescue HELP_PARSER::UsageException

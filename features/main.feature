@@ -62,9 +62,9 @@ Feature: Main Features
   Scenario: What we shred from stdin, we can sew to stdout.  And using 3 shreds to boot!
     * Given system(rm ./temp.* 2> /dev/null)
     * Given system(openssl rand -base64 32 > ./temp.txt)
-    * Given system(cat ./temp.txt | ruby -I ./lib ./bin/shredder --shred --stream ./temp.1 ./temp.2 ./temp.3)
+    * Given system(cat ./temp.txt | ruby -I ./lib ./bin/shredder --shred --io ./temp.1 ./temp.2 ./temp.3)
     * Then system(test -e ./temp.3)
-    * Given system(ruby -I ./lib ./bin/shredder --sew --stream ./temp.1 ./temp.2 ./temp.3 > ./temp.sewed)
+    * Given system(ruby -I ./lib ./bin/shredder --sew --io ./temp.1 ./temp.2 ./temp.3 > ./temp.sewed)
     * Then system(test -e ./temp.sewed)
     * Then system(diff temp.txt temp.sewed > /dev/null)
 

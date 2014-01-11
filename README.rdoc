@@ -17,8 +17,8 @@ Command line:
    $ shredder --help
    $ shredder --shred file.orig  file.1 file.2
    $ shredder --sew   file.sewed file.1 file.2
-   $ cat file.orig | shredder --shred --stream file.1 file.2
-   $ shredder --sew --stream file.1 file.2 > file.sewed
+   $ cat file.orig | shredder --shred --io file.1 file.2
+   $ shredder --sew --io file.1 file.2 > file.sewed
 
 Library:
 

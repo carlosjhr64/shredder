@@ -8,7 +8,7 @@ module SHREDDER
       @shred = options[:shred]
       @relay = options[:relay]
       if @sewed.nil?
-        if options[:stream]
+        if options[:io]
           @sewed = (@shred)? STDIN : STDOUT
         else
           @sewed = @shreds.shift
