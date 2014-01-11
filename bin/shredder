@@ -34,6 +34,6 @@ begin
 rescue HELP_PARSER::UsageException
   puts $!.message
 rescue HELP_PARSER::UsageError
-  puts $!.message
+  STDERR.puts $!.message
   exit 64
 end
