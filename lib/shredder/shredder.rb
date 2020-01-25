@@ -1,46 +1,27 @@
-module SHREDDER
-
-  class Shredder
-
-    attr_reader :shreds, :sewed
-    def initialize(options={}, shreds=[], sewed=nil)
-      @shreds, @sewed = shreds, sewed
-      @shred = options[:shred]
-      @relay = options[:relay]
-      if @sewed.nil?
-        if options[:io]
-          @sewed = (@shred)? STDIN : STDOUT
-        else
-          @sewed = @shreds.shift
-        end
-      end
+module Shredder
+  # note that these are streams
+  def shred(shreds=@shreds, sewn=(@sewn or $stdin),
+            writers: shreds, reader: sewn, limit: 0)
+    shreds,xor,count = writers.length,0,0
+    while byte = reader.getbyte do
+      writers[count%shreds].putc(xor^(xor=byte))
+      count += 1 # not that 0 is skipped
+      break if count == limit
     end
-
-    def execute(sewed=@sewed, shreds=@shreds, shred=@shred)
-      stream = false
-      if sewed.kind_of?(IO)
-        stream = true
-        rw     = (shred)? 'w' : 'r'
-        shreds = shreds.map{|filename| File.open(filename, rw)}
-      end
-
-      shredder = (stream)? Shredder::Streams.new(sewed, shreds) : Shredder::Files.new(sewed, shreds)
-      STDOUT.puts STDIN.gets if @relay
-      begin
-        (shred)? shredder.shred : shredder.sew
-      ensure
-        shreds.each{|filehandle| filehandle.close} if stream
-      end
-    end
-
-    def shred(sewed, *shreds)
-      execute(sewed, shreds, true)
-    end
-
-    def sew(sewed, *shreds)
-      execute(sewed, shreds, false)
-    end
-
+    return count
   end
 
+  # note that these are streams
+  def sew(shreds=@shreds, sewn=(@sewn or $stdout),
+          readers: shreds, writer: sewn, limit: 0)
+    shreds,xor,count = readers.length,0,0
+    while byte = readers[count%shreds].getbyte do
+      writer.putc(xor=(byte^xor))
+      count += 1 # note that 0 is skipped
+      break if count == limit
+    end
+    return count
+  end
+
+  extend self
 end

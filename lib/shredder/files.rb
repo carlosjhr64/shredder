@@ -1,51 +1,36 @@
-module SHREDDER
-
+module Shredder
   class Files
-    extend Functions
-
-     # this one takes filenames
-    def initialize(sew, shreds, limit=0)
-      @sew    = sew
+    attr_reader :sewn, :shreds
+    # this one takes filenames
+    def initialize(sewn, shreds)
+      @sewn   = sewn
       @shreds = shreds
-      @limit  = limit
     end
 
-    def shred(limit=@limit)
-      reader  = File.open(@sew, 'r')
-      writers = []
-      @shreds.each{|shred| writers.push(File.open(shred, 'wb'))}
-
-      count = nil
+    def shred(limit=0)
+      reader = writers = count = nil
       begin
-        count = Files.shred(reader, writers, limit)
-      rescue Exception
-        raise $!
+        reader  = File.open(@sewn, 'r')
+        writers = @shreds.map{|shred| File.open(shred, 'wb')}
+        count   = Streams.new(reader, writers).shred(limit: limit)
       ensure
-        writers.each{|writer| writer.close}
-        reader.close
-       end
-
+        writers.each{|writer| writer.close}  if writers
+        reader.close                         if reader
+      end
       return count
     end
 
-    def sew(limit=@limit)
-      writer  = File.open(@sew, 'wb')
-      readers = []
-      @shreds.each{|shred| readers.push(File.open(shred, 'r'))}
-
-      count = nil
+    def sew(limit=0)
+      writer = readers = count = nil
       begin
-        count = Files.sew(writer, readers, limit)
-      rescue Exception
-        raise $!
+        writer  = File.open(@sew, 'wb')
+        readers = @shreds.map{|shred| File.open(shred, 'r')}
+        count   = Streams.new(writer, readers).sew(limit: limit)
       ensure
         writer.close
         readers.each{|reader| reader.close}
       end
-
       return count
     end
-
   end
-
 end

@@ -18,12 +18,14 @@ if OPTIONS.shreds.length < 2
   exit 64
 end
 
-require 'shredder'
+require 'shredder/shredder'
+require 'shredder/streams'
+require 'shredder/stdio'
 
-shredder = Shredder.new(OPTIONS.shreds)
+shredder = Shredder::StdIO.new(OPTIONS.shreds)
 case OPTIONS[1]
 when 'shred'
-  shredder.shred($stdin)
+  shredder.shred
 when 'sew'
-  shredder.sew($stdout)
+  shredder.sew
 end
