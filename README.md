@@ -1,42 +1,42 @@
-= shredder
+# shredder
 
-github :: https://www.github.com/carlosjhr64/shredder
-rubygems :: https://rubygems.org/gems/shredder
+[VERSION 2.0.200125](https://github.com/carlosjhr64/shredder/releases)
+[github](https://github.com/carlosjhr64/shredder)
+[rubygems](https://rubygems.org/gems/shredder)
 
-== DESCRIPTION:
+## DESCRIPTION:
 
 Shred a file into file fragments, and join fragments back into a restored file.
 
 Disperse file shreds in separate depositories
 so that no one depository has the entire file.
 
-== SYNOPSIS
+## SYNOPSIS
 
 Command line:
 
-   $ shredder --help
-   $ shredder --shred file.orig  file.1 file.2
-   $ shredder --sew   file.sewed file.1 file.2
-   $ cat file.orig | shredder --shred --io file.1 file.2
-   $ shredder --sew --io file.1 file.2 > file.sewed
+    $ shredder --help
+    $ shredder --version
+    $ shredder shred file.1 file.2 < file.orig
+    $ shredder sew file.1 file.2 > file.sewed
 
 Library:
 
-   require 'shredder'
-   # ...
-   shredder = SHREDDER:Shredder.new
-   shredder.shred('orinal.txt', 'shred.1', 'shred.2')
-   shredder.sew(  'sewed.txt',  'shred.1', 'shred.2')
+    require 'shredder'
+    # ...
+    shredder = SHREDDER:Shredder.new
+    shredder.shred('orinal.txt', 'shred.1', 'shred.2')
+    shredder.sew(  'sewed.txt',  'shred.1', 'shred.2')
 
-== INSTALL:
+## INSTALL:
 
-   $ sudo gem install shredder
+    $ sudo gem install shredder
 
-== LICENSE:
+## LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2014 CarlosJHR64
+Copyright (c) 2020 CarlosJHR64
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

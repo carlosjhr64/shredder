@@ -1,43 +1,29 @@
 #!/usr/bin/env ruby
-
-# Gems:
 require 'help_parser'
 
-# This Gem:
-require 'shredder'
-include SHREDDER
-
-NAME = File.basename $0 # Program Name
-HELP = <<HELP
-Usage: #{NAME} [options] [file] shred1 shred2...
-Options:
-  -r --shred     Shred a file to shreds.
-  -w --sew       Sew shreds back to file.
-  -s --io        Shreds/sews from/to stdin/stdout respectively.
-  --relay        Relay first stdin gets to stdout puts.
-
-  -h --help      Puts this help and exits.
-  -v --version   Puts version and exits.
-
-  -f --force     These are not implemented yet,
-  --yes          but are defined to provide
-  --no           a symmetry with commands like gpg.
-Note:
-  Typical use of relay is for passphrase.
-Version: #{VERSION}
+OPTIONS = HelpParser['2.0.200125', <<HELP]
+Usage:
+  shredder shred [:option] <shreds=FILENAME>+
+  shredder sew [:option] <shreds=FILENAME>+
+Option:
+  --passphrase\tRelay passphrase from stding to stdout
+Types:
+  FILENAME  /^[[:print:]]+$/
+# Examples:
+#   shredder shred file.1 file.2 < file.txt
+#   shredder sew file.1 file.2 > file.txt
 HELP
-
-begin
-  OPTIONS = HELP_PARSER::HelpParser.new(VERSION, HELP)
-  OPTIONS.defaults!(:shred, false, true)
-  OPTIONS.defaults!(:sew,   false, true)
-  OPTIONS.usage_error "Need choice: sew or shred?" unless OPTIONS[:sew] ^ OPTIONS[:shred] # xor
-  MIN = (OPTIONS[:io])? 2 : 3
-  OPTIONS.usage_error "Need at least 2 shreds" unless ARGV.length >= MIN
-  Shredder.new(OPTIONS, ARGV).execute
-rescue HELP_PARSER::UsageException
-  puts $!.message
-rescue HELP_PARSER::UsageError
-  STDERR.puts $!.message
+if OPTIONS.shreds.length < 2
+  $stderr.puts "Need at least 2 shreds"
   exit 64
+end
+
+require 'shredder'
+
+shredder = Shredder.new(OPTIONS.shreds)
+case OPTIONS[1]
+when 'shred'
+  shredder.shred($stdin)
+when 'sew'
+  shredder.sew($stdout)
 end

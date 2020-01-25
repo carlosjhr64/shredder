@@ -1,7 +1,0 @@
-== TODO
-
-Implement the --yes, --no, and --force options.
-
-== File List
-
-
