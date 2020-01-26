@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'help_parser'
 
-OPTIONS = HelpParser['2.0.200125', <<HELP]
+OPTIONS = HelpParser['2.0.200126', <<HELP]
 Usage:
   shredder shred [:options+] <shreds=FILENAME>+
   shredder sew [:options+] <shreds=FILENAME>+
