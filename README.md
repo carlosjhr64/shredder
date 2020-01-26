@@ -21,15 +21,16 @@ Shred a file into file fragments, and join fragments back into a restored file.
 
     require 'shredder'
 
-#### module Shredder
+#### Shredder::Streams
 
     require 'stringio'
 
     sewn = StringIO.new("This is a test String: 1, 2, 3.")
     sewn.string.length #=> 31
-
     shreds = [StringIO.new, StringIO.new]
-    Shredder.shred sewn, shreds #=> 31
+
+    shredder = Shredder::Streams.new(sewn, shreds)
+    shredder.shred #=> 31
 
     shreds[0].string
     #=> "T\u0001S\u001AAT\u0016T'\e\t\u001A\u001D\u0012\f\u001D"
@@ -39,9 +40,11 @@ Shred a file into file fragments, and join fragments back into a restored file.
     #=> "<\u001AISA\u0011\as\u0006\a]\u0011\f\u001E\u0013"
     shreds[1].string.length #=> 15
 
-    shreds.each{|_|_.rewind}
     restored = StringIO.new
-    Shredder.sew shreds, restored
+    shreds.each{|_|_.rewind}
+
+    shredder = Shredder::Streams.new(restored, shreds)
+    shredder.sew #=> 31
 
     restored.string #=> "This is a test String: 1, 2, 3."
 
