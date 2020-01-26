@@ -1,19 +1,10 @@
 module Shredder
   class Files
-    attr_reader :sewn, :shreds
+    include Shredder
     # this one takes filenames
     def initialize(sewn, shreds=sewn, m=2, n: m)
       @sewn   = sewn
-      case shreds
-      when Array
-        @shreds = shreds
-      when String
-        @shreds = (1..n).map{|i| "#{shreds}.#{i}"}
-      when Integer
-        @shreds = (1..shreds).map{|i| "#{sewn}.#{i}"}
-      else
-        raise "Expected #new(sewn String, shreds Array|String|Integer, n=2)"
-      end
+      @shreds = shred_files(shreds, n)
       raise "Need at least 2 shreds" unless @shreds.length > 1
     end
 

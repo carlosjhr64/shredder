@@ -1,4 +1,6 @@
 module Shredder
+  attr_accessor :sewn, :shreds
+
   # note that these are streams
   def shred(sewn=(@sewn or $stdin), shreds=@shreds,
             writers: shreds, reader: sewn, limit: 0)
@@ -23,5 +25,16 @@ module Shredder
     return count
   end
 
-  extend self
+  def shred_files(b, m=2, basename: b, n: m)
+    case basename
+    when Array
+      basename
+    when String
+      (1..n).map{|i| "#{basename}.#{i}"}
+    when Integer
+      (1..basename).map{|i| "#{@sewn or 'shred'}.#{i}"}
+    else
+      raise "Expected basename Array|String|Integer"
+    end
+  end
 end
