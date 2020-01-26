@@ -23,7 +23,7 @@ module Shredder
         readers = @shreds.map{|shred| File.open(shred, 'r')}
         count   = Streams.new($stdout, readers).sew(limit: limit)
       ensure
-        readers.each{|reader| reader.close}
+        readers.each{|reader| reader.close}  if readers
       end
       return count
     end

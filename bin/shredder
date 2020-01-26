@@ -3,18 +3,35 @@ require 'help_parser'
 
 OPTIONS = HelpParser['2.0.200125', <<HELP]
 Usage:
-  shredder shred [:option] <shreds=FILENAME>+
-  shredder sew [:option] <shreds=FILENAME>+
-Option:
+  shredder shred [:options+] <shreds=FILENAME>+
+  shredder sew [:options+] <shreds=FILENAME>+
+Options:
+  --n=INTEGER \tNumber of shreds
   --passphrase\tRelay passphrase from stding to stdout
 Types:
-  FILENAME  /^[[:print:]]+$/
+  FILENAME   /^[[:print:]]+$/
+  INTEGER    /^[2-9]\d*$/
 # Examples:
 #   shredder shred file.1 file.2 < file.txt
+#   shredder shred --n=2 file < file.txt
 #   shredder sew file.1 file.2 > file.txt
+#   shredder shred --n=2 file > file.txt
 HELP
-if OPTIONS.shreds.length < 2
-  $stderr.puts "Need at least 2 shreds"
+HelpParser.int?(:n)
+
+shreds = OPTIONS.shreds
+count = shreds.length
+if n = OPTIONS.n?
+  if count == 1
+    count = n
+    shreds = shreds.first
+  elsif count != n
+    $stderr.puts "shred count(#{count}) not equal to n(#{n})."
+    exit 64
+  end
+end
+unless count > 1
+  $stderr.puts "shred count must be at least 2"
   exit 64
 end
 
@@ -22,10 +39,17 @@ require 'shredder/shredder'
 require 'shredder/streams'
 require 'shredder/stdio'
 
-shredder = Shredder::StdIO.new(OPTIONS.shreds)
+shredder = Shredder::StdIO.new(shreds, count)
 case OPTIONS[1]
 when 'shred'
   shredder.shred
 when 'sew'
-  shredder.sew
+  begin
+    shredder.sew
+  rescue Errno::ENOENT
+    # Common expected type of error,
+    # user tries to sew non-existing shreds.
+    $stderr.puts $!.message
+    exit 65
+  end
 end
