@@ -2,9 +2,19 @@ module Shredder
   class Files
     attr_reader :sewn, :shreds
     # this one takes filenames
-    def initialize(sewn, shreds)
+    def initialize(sewn, shreds, n=2)
       @sewn   = sewn
-      @shreds = shreds
+      case shreds
+      when Array
+        @shreds = shreds
+      when String
+        @shreds = (1..n).map{|i| "#{shreds}.#{i}"}
+      when Integer
+        @shreds = (1..shreds).map{|i| "#{sewn}.#{i}"}
+      else
+        raise "Expected #new(sewn String, shreds Array|String|Integer, n=2)"
+      end
+      raise "Need at least 2 shreds" unless @shreds.length > 1
     end
 
     def shred(limit=0)
@@ -23,12 +33,12 @@ module Shredder
     def sew(limit=0)
       writer = readers = count = nil
       begin
-        writer  = File.open(@sew, 'wb')
+        writer  = File.open(@sewn, 'wb')
         readers = @shreds.map{|shred| File.open(shred, 'r')}
         count   = Streams.new(writer, readers).sew(limit: limit)
       ensure
-        writer.close
-        readers.each{|reader| reader.close}
+        writer.close                          if writer
+        readers.each{|reader| reader.close}   if readers
       end
       return count
     end

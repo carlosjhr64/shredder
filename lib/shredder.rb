@@ -1,4 +1,4 @@
-module Shedder
+module Shredder
   VERSION = '2.0.200125'
 end
 require 'shredder/shredder'

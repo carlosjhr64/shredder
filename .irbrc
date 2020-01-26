@@ -1,5 +1,5 @@
 require 'shredder'
-include Shedder
+include Shredder
 
 # IRB Tools
 require 'irbtools/configure'

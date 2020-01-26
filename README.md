@@ -13,24 +13,43 @@ so that no one depository has the entire file.
 
 ## SYNOPSIS
 
-Command line:
+### Command line:
 
-    $ shredder --help
-    $ shredder --version
+    $ shredder --help      # or -h
+    $ shredder --version   # or -v
     $ shredder shred file.1 file.2 < file.orig
     $ shredder sew file.1 file.2 > file.sewed
 
-Library:
+### Library:
 
     require 'shredder'
-    # ...
-    shredder = SHREDDER:Shredder.new
-    shredder.shred('orinal.txt', 'shred.1', 'shred.2')
-    shredder.sew(  'sewed.txt',  'shred.1', 'shred.2')
+
+#### Shredder::Files
+
+    sewn = './tmp/sewn.txt'
+    shreds = './tmp/shreds'
+    File.read(sewn).chomp #=> "This is a test file: 1, 2, 3."
+    File.size(sewn) #=> 30
+
+    shredder = Shredder::Files.new(sewn, shreds, 3)
+    shredder.shreds
+    #=> ["./tmp/shreds.1", "./tmp/shreds.2", "./tmp/shreds.3"]
+    shredder.shred #=> 30
+
+    File.read(shreds+'.1') #=> "T\u001A\u001AA\u0016F\t\u0011\u0012\u0013"
+    File.read(shreds+'.2') #=> "<SST\a\u000F_\u001D\u001E\u001D"
+    File.read(shreds+'.3') #=> "\u0001IA\u0011T\u0005\u001A\f\f$"
+    File.size(shreds+'.3') #=> 10
+
+    # and one can sew back shreds
+    shredder = Shredder::Files.new(sewn+'.restored', shreds, 3)
+    shredder.sewn #=> "./tmp/sewn.txt.restored"
+    shredder.sew #=> 30
+    File.read(sewn+'.restored').chomp #=> "This is a test file: 1, 2, 3."
 
 ## INSTALL:
 
-    $ sudo gem install shredder
+    $ gem install shredder
 
 ## LICENSE:
 
