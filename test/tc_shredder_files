@@ -1,0 +1,26 @@
+#! ruby
+require 'test/unit'
+require 'shredder'
+include Shredder
+
+class TestShredderFile < Test::Unit::TestCase
+  def test_shredder_file_init
+    shredder = Files.new('abc', ['a','b','c'])
+    assert_equal ['a','b','c'], shredder.shreds
+
+    shredder = Files.new('abc', 'xyz')
+    assert_equal ['xyz.1','xyz.2'], shredder.shreds
+
+    shredder = Files.new('abc', 'a', 4)
+    assert_equal ['a.1','a.2','a.3','a.4'], shredder.shreds
+
+    shredder = Files.new('abc', 5)
+    assert_equal ['abc.1','abc.2','abc.3','abc.4','abc.5'], shredder.shreds
+
+    shredder = Files.new('abc')
+    assert_equal ['abc.1','abc.2'], shredder.shreds
+
+    shredder = Files.new('abc', n: 3)
+    assert_equal ['abc.1','abc.2', 'abc.3'], shredder.shreds
+  end
+end

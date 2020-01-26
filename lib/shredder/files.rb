@@ -2,7 +2,7 @@ module Shredder
   class Files
     attr_reader :sewn, :shreds
     # this one takes filenames
-    def initialize(sewn, shreds, n=2)
+    def initialize(sewn, shreds=sewn, m=2, n: m)
       @sewn   = sewn
       case shreds
       when Array
