@@ -1,6 +1,6 @@
 module Shredder
   # note that these are streams
-  def shred(shreds=@shreds, sewn=(@sewn or $stdin),
+  def shred(sewn=(@sewn or $stdin), shreds=@shreds,
             writers: shreds, reader: sewn, limit: 0)
     shreds,xor,count = writers.length,0,0
     while byte = reader.getbyte do

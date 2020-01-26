@@ -8,9 +8,6 @@
 
 Shred a file into file fragments, and join fragments back into a restored file.
 
-Disperse file shreds in separate depositories
-so that no one depository has the entire file.
-
 ## SYNOPSIS
 
 ### Command line:
@@ -24,10 +21,36 @@ so that no one depository has the entire file.
 
     require 'shredder'
 
+#### module Shredder
+
+    require 'stringio'
+
+    sewn = StringIO.new("This is a test String: 1, 2, 3.")
+    sewn.string.length #=> 31
+
+    shreds = [StringIO.new, StringIO.new]
+    Shredder.shred sewn, shreds #=> 31
+
+    shreds[0].string
+    #=> "T\u0001S\u001AAT\u0016T'\e\t\u001A\u001D\u0012\f\u001D"
+    shreds[0].string.length #=> 16
+
+    shreds[1].string
+    #=> "<\u001AISA\u0011\as\u0006\a]\u0011\f\u001E\u0013"
+    shreds[1].string.length #=> 15
+
+    shreds.each{|_|_.rewind}
+    restored = StringIO.new
+    Shredder.sew shreds, restored
+
+    restored.string #=> "This is a test String: 1, 2, 3."
+
 #### Shredder::Files
 
     sewn = './tmp/sewn.txt'
     shreds = './tmp/shreds'
+    restored  = './tmp/restored.txt'
+
     File.read(sewn).chomp #=> "This is a test file: 1, 2, 3."
     File.size(sewn) #=> 30
 
@@ -41,11 +64,10 @@ so that no one depository has the entire file.
     File.read(shreds+'.3') #=> "\u0001IA\u0011T\u0005\u001A\f\f$"
     File.size(shreds+'.3') #=> 10
 
-    # and one can sew back shreds
-    shredder = Shredder::Files.new(sewn+'.restored', shreds, 3)
-    shredder.sewn #=> "./tmp/sewn.txt.restored"
+    shredder = Shredder::Files.new(restored, shreds, 3)
+    shredder.sewn #=> "./tmp/restored.txt"
     shredder.sew #=> 30
-    File.read(sewn+'.restored').chomp #=> "This is a test file: 1, 2, 3."
+    File.read(restored).chomp #=> "This is a test file: 1, 2, 3."
 
 ## INSTALL:
 
