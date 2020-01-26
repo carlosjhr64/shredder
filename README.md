@@ -10,29 +10,22 @@ Shred a file into file fragments, and join fragments back into a restored file.
 
 ## HELP:
 
-    Usage:
-      shredder shred [:options+] <shreds=FILENAME>+
-      shredder sew [:options+] <shreds=FILENAME>+
-    Options:
-      --n=INTEGER 	Number of shreds
-      --passphrase	Relay passphrase from stding to stdout
-    Types:
-      FILENAME   /^[[:print:]]+$/
-      INTEGER    /^[2-9]d*$/
-    # Examples:
-    #   shredder shred file.1 file.2 < file.txt
-    #   shredder shred --n=2 file < file.txt
-    #   shredder sew file.1 file.2 > file.txt
-    #   shredder shred --n=2 file > file.txt
+    $ Usage:
+    $   shredder shred [:options+] <shreds=FILENAME>+
+    $   shredder sew [:options+] <shreds=FILENAME>+
+    $ Options:
+    $   --n=INTEGER 	Number of shreds
+    $   --passphrase	Relay passphrase from stding to stdout
+    $ Types:
+    $   FILENAME   /^[[:print:]]+$/
+    $   INTEGER    /^[2-9]d*$/
+    $ # Examples:
+    $ #   shredder shred file.1 file.2 < file.txt
+    $ #   shredder shred --n=2 file < file.txt
+    $ #   shredder sew file.1 file.2 > file.txt
+    $ #   shredder shred --n=2 file > file.txt
 
 ## SYNOPSIS
-
-### Command line:
-
-    $ shredder --help      # or -h
-    $ shredder --version   # or -v
-    $ shredder shred file.1 file.2 < file.orig
-    $ shredder sew file.1 file.2 > file.sewed
 
 ### Library:
 
