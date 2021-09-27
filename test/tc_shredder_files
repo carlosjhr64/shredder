@@ -29,7 +29,7 @@ class TestShredderFiles < Test::Unit::TestCase
 
   def test_shredder_files_shred_and_sew
     string = "This is a test file: 1, 2, 3.\n"
-    sewn = 'tmp/sewn.txt'
+    sewn = 'test/sewn.txt'
     shreds = 'tmp/shred'
     restored = 'tmp/restored.txt'
 

@@ -1,14 +1,14 @@
 Gem::Specification.new do |s|
 
   s.name     = 'shredder'
-  s.version  = '2.0.200126'
+  s.version  = '2.0.210927'
 
   s.homepage = 'https://github.com/carlosjhr64/shredder'
 
   s.author   = 'carlosjhr64'
   s.email    = 'carlosjhr64@gmail.com'
 
-  s.date     = '2020-01-26'
+  s.date     = '2021-09-27'
   s.licenses = ['MIT']
 
   s.description = <<DESCRIPTION
@@ -30,7 +30,7 @@ lib/shredder/stdio.rb
 lib/shredder/streams.rb
   )
   s.executables << 'shredder'
-  s.add_runtime_dependency 'help_parser', '~> 6.5', '>= 6.5.0'
-  s.requirements << 'ruby: ruby 2.7.0p0 (2019-12-25 revision 647ee6f091) [x86_64-linux]'
+  s.add_runtime_dependency 'help_parser', '~> 8.0', '>= 8.0.210917'
+  s.requirements << 'ruby: ruby 3.0.2p107 (2021-09-27 revision 0db68f0233) [x86_64-linux]'
 
 end

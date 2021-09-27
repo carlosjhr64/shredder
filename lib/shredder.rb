@@ -1,5 +1,5 @@
 module Shredder
-  VERSION = '2.0.200126'
+  VERSION = '2.0.210927'
 end
 require 'shredder/shredder'
 require 'shredder/streams'
