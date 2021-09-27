@@ -1,4 +1,4 @@
-# shredder
+# Shredder
 
 * [VERSION 2.0.210927](https://github.com/carlosjhr64/shredder/releases)
 * [github](https://github.com/carlosjhr64/shredder)
@@ -8,26 +8,31 @@
 
 Shred a file into file fragments, and join fragments back into a restored file.
 
+## INSTALL:
+```console
+$ gem install shredder
+```
 ## HELP:
 ```console
-$ Usage:
-$   shredder shred [:options+] <shreds=FILENAME>+
-$   shredder sew [:options+] <shreds=FILENAME>+
-$ Options:
-$   --n=INTEGER 	Number of shreds
-$   --passphrase	Relay passphrase from stding to stdout
-$ Types:
-$   FILENAME   /^[[:print:]]+$/
-$   INTEGER    /^[2-9]d*$/
-$ # Examples:
-$ #   shredder shred file.1 file.2 < file.txt
-$ #   shredder shred --n=2 file < file.txt
-$ #   shredder sew file.1 file.2 > file.txt
-$ #   shredder shred --n=2 file > file.txt
+$ shredder --help
+Usage:
+  shredder shred [:options+] <shreds=FILENAME>+
+  shredder sew [:options+] <shreds=FILENAME>+
+Options:
+  --n=INTEGER 	Number of shreds
+  --passphrase	Relay passphrase from stding to stdout
+Types:
+  FILENAME   /^[[:print:]]+$/
+  INTEGER    /^[2-9]d*$/
+# Examples:
+#   shredder shred file.1 file.2 < file.txt
+#   shredder shred --n=2 file < file.txt
+#   shredder sew file.1 file.2 > file.txt
+#   shredder shred --n=2 file > file.txt
 ```
-## SYNOPSIS
+## SYNOPSIS:
 
-### Library:
+### Library
 ```ruby
 require 'shredder'
 ```
@@ -82,10 +87,6 @@ shredder.sewn #=> "./tmp/restored.txt"
 shredder.sew #=> 30
 File.read(restored).chomp #=> "This is a test file: 1, 2, 3."
 ```
-## INSTALL:
-
-    $ gem install shredder
-
 ## LICENSE:
 
 (The MIT License)
@@ -110,4 +111,3 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-

@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
 
   s.homepage = 'https://github.com/carlosjhr64/shredder'
 
-  s.author   = 'carlosjhr64'
+  s.author   = 'CarlosJHR64'
   s.email    = 'carlosjhr64@gmail.com'
 
   s.date     = '2021-09-27'
@@ -31,6 +31,6 @@ lib/shredder/streams.rb
   )
   s.executables << 'shredder'
   s.add_runtime_dependency 'help_parser', '~> 8.0', '>= 8.0.210917'
-  s.requirements << 'ruby: ruby 3.0.2p107 (2021-09-27 revision 0db68f0233) [x86_64-linux]'
+  s.requirements << 'ruby: ruby 3.0.2p107 (2021-07-07 revision 0db68f0233) [x86_64-linux]'
 
 end
