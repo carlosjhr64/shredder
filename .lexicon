@@ -1,6 +1,7 @@
 args
 Array
 attr_accessor
+autoload
 b
 basename
 byte

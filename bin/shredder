@@ -1,13 +1,14 @@
 #!/usr/bin/env ruby
 require 'help_parser'
+require 'shredder'
 
-OPTIONS = HelpParser['2.0.210927', <<HELP]
+OPTIONS = HelpParser[Shredder::VERSION, <<HELP]
 Usage:
   shredder shred [:options+] <shreds=FILENAME>+
   shredder sew [:options+] <shreds=FILENAME>+
 Options:
   --n=INTEGER \tNumber of shreds
-  --passphrase\tRelay passphrase from stding to stdout
+  --passphrase\tRelay passphrase from stdin to stdout
 Types:
   FILENAME   /^[[:print:]]+$/
   INTEGER    /^[2-9]\d*$/
@@ -34,10 +35,6 @@ unless count > 1
   $stderr.puts "shred count must be at least 2"
   exit 64
 end
-
-require 'shredder/shredder'
-require 'shredder/streams'
-require 'shredder/stdio'
 
 shredder = Shredder::StdIO.new(shreds, count)
 case OPTIONS[1]

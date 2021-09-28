@@ -1,9 +1,9 @@
 module Shredder
-  VERSION = '2.0.210927'
+  VERSION = '2.0.210928'
+  require 'shredder/shredder'
+  autoload :Streams, 'shredder/streams'
+  autoload :StdIO,   'shredder/stdio'
+  autoload :Files,   'shredder/files'
 end
-require 'shredder/shredder'
-require 'shredder/streams'
-require 'shredder/stdio'
-require 'shredder/files'
 # Requires:
 #`ruby`
