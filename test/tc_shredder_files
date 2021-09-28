@@ -1,4 +1,5 @@
 #! ruby
+require 'stringio'
 require 'test/unit'
 require 'shredder'
 include Shredder
@@ -49,5 +50,22 @@ class TestShredderFiles < Test::Unit::TestCase
     shredder.sewn = restored
     shredder.sew
     assert_equal string, File.read(restored)
+  end
+
+  def test_shredder_stringio
+    string = 'This is a test string: 1, 2, 3.'
+    sio = StringIO.new string
+    shreds = [StringIO.new, StringIO.new]
+    shredder = Shredder::Streams.new(sio, shreds)
+    assert_equal 31, shredder.shred
+    assert_equal "T\u0001S\u001AAT\u0016T\a\e\t\u001A\u001D\u0012\f\u001D",
+                 shreds[0].string
+    assert_equal "<\u001AISA\u0011\aS\u0006\a]\u0011\f\u001E\u0013",
+                 shreds[1].string
+    restored = StringIO.new
+    shreds.each{_1.rewind}
+    sower = Shredder::Streams.new(restored, shreds)
+    assert_equal 31, sower.sew
+    assert_equal string, restored.string
   end
 end
