@@ -9,10 +9,10 @@ module Shredder
     def shred(limit=0)
       writers = count = nil
       begin
-        writers = @shreds.map{|shred| File.open(shred, 'wb')}
+        writers = @shreds.map{File.open _1, 'wb'}
         count   = Streams.new($stdin, writers).shred(limit: limit)
       ensure
-        writers.each{|writer| writer.close}  if writers
+        writers.each{_1.close}  if writers
       end
       return count
     end
@@ -20,10 +20,10 @@ module Shredder
     def sew(limit=0)
       readers = count = nil
       begin
-        readers = @shreds.map{|shred| File.open(shred, 'r')}
+        readers = @shreds.map{File.open _1, 'r'}
         count   = Streams.new($stdout, readers).sew(limit: limit)
       ensure
-        readers.each{|reader| reader.close}  if readers
+        readers.each{_1.close}  if readers
       end
       return count
     end

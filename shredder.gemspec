@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
 
   s.name     = 'shredder'
-  s.version  = '2.0.210928'
+  s.version  = '3.0.210928'
 
   s.homepage = 'https://github.com/carlosjhr64/shredder'
 

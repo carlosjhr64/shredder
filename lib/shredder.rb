@@ -1,5 +1,5 @@
 module Shredder
-  VERSION = '2.0.210928'
+  VERSION = '3.0.210928'
   require 'shredder/shredder'
   autoload :Streams, 'shredder/streams'
   autoload :StdIO,   'shredder/stdio'

@@ -7,8 +7,7 @@ Usage:
   shredder shred [:options+] <shreds=FILENAME>+
   shredder sew [:options+] <shreds=FILENAME>+
 Options:
-  --n=INTEGER \tNumber of shreds
-  --passphrase\tRelay passphrase from stdin to stdout
+  --n=INTEGER \t Number of shreds
 Types:
   FILENAME   /^[[:print:]]+$/
   INTEGER    /^[2-9]\d*$/

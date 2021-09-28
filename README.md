@@ -1,6 +1,6 @@
 # Shredder
 
-* [VERSION 2.0.210928](https://github.com/carlosjhr64/shredder/releases)
+* [VERSION 3.0.210928](https://github.com/carlosjhr64/shredder/releases)
 * [github](https://github.com/carlosjhr64/shredder)
 * [rubygems](https://rubygems.org/gems/shredder)
 

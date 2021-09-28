@@ -25,7 +25,7 @@ module Shredder
     return count
   end
 
-  def shred_files(b, m=2, basename: b, n: m)
+  def shred_files(b=nil, m=2, basename: b, n: m)
     case basename
     when Array
       basename
