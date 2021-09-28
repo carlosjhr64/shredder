@@ -10,7 +10,7 @@ Options:
   --n=INTEGER \t Number of shreds
 Types:
   FILENAME   /^[[:print:]]+$/
-  INTEGER    /^[2-9]\d*$/
+  INTEGER    /^[2-9]\\d*$/
 # Examples:
 #   shredder shred file.1 file.2 < file.txt
 #   shredder shred --n=2 file < file.txt

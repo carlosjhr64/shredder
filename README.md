@@ -19,11 +19,10 @@ Usage:
   shredder shred [:options+] <shreds=FILENAME>+
   shredder sew [:options+] <shreds=FILENAME>+
 Options:
-  --n=INTEGER 	Number of shreds
-  --passphrase	Relay passphrase from stding to stdout
+  --n=INTEGER 	 Number of shreds
 Types:
   FILENAME   /^[[:print:]]+$/
-  INTEGER    /^[2-9]d*$/
+  INTEGER    /^[2-9]\d*$/
 # Examples:
 #   shredder shred file.1 file.2 < file.txt
 #   shredder shred --n=2 file < file.txt

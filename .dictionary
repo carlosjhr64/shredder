@@ -21,7 +21,6 @@ putc
 rubygems
 stderr
 stdin
-stding
 StdIO
 stdout
 stringio
