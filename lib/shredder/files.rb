@@ -12,11 +12,11 @@ module Shredder
       reader = writers = count = nil
       begin
         reader  = File.open(@sewn, 'r')
-        writers = @shreds.map{|shred| File.open(shred, 'wb')}
+        writers = @shreds.map{File.open _1, 'wb'}
         count   = Streams.new(reader, writers).shred(limit: limit)
       ensure
-        writers.each{|writer| writer.close}  if writers
-        reader.close                         if reader
+        writers.each{_1.close}  if writers
+        reader.close            if reader
       end
       return count
     end
@@ -25,11 +25,11 @@ module Shredder
       writer = readers = count = nil
       begin
         writer  = File.open(@sewn, 'wb')
-        readers = @shreds.map{|shred| File.open(shred, 'r')}
+        readers = @shreds.map{File.open(_1, 'r')}
         count   = Streams.new(writer, readers).sew(limit: limit)
       ensure
-        writer.close                          if writer
-        readers.each{|reader| reader.close}   if readers
+        writer.close            if writer
+        readers.each{_1.close}  if readers
       end
       return count
     end
