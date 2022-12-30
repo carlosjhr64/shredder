@@ -2,8 +2,8 @@ module Shredder
   class StdIO
     include Shredder
     # this one takes shred filenames and uses $stdin or $stdout appropriately.
-    def initialize(*args)
-      @shreds = shred_files(*args)
+    def initialize(...)
+      @shreds = shred_files(...)
     end
 
     def shred(limit=0)
