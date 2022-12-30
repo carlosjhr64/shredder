@@ -1,6 +1,6 @@
 # Shredder
 
-* [VERSION 3.0.210928](https://github.com/carlosjhr64/shredder/releases)
+* [VERSION 3.1.221230](https://github.com/carlosjhr64/shredder/releases)
 * [github](https://github.com/carlosjhr64/shredder)
 * [rubygems](https://rubygems.org/gems/shredder)
 
@@ -90,7 +90,7 @@ File.read(restored).chomp #=> "This is a test file: 1, 2, 3."
 
 (The MIT License)
 
-Copyright (c) 2021 CarlosJHR64
+Copyright (c) 2022 CarlosJHR64
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

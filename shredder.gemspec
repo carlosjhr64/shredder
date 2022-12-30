@@ -1,14 +1,14 @@
 Gem::Specification.new do |s|
 
   s.name     = 'shredder'
-  s.version  = '3.0.210928'
+  s.version  = '3.1.221230'
 
   s.homepage = 'https://github.com/carlosjhr64/shredder'
 
   s.author   = 'CarlosJHR64'
   s.email    = 'carlosjhr64@gmail.com'
 
-  s.date     = '2021-09-28'
+  s.date     = '2022-12-30'
   s.licenses = ['MIT']
 
   s.description = <<DESCRIPTION

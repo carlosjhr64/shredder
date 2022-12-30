@@ -9,7 +9,7 @@ Feature: Main Features
     * When run
     * Then status is "0"
     * Then stderr is ""
-    * Then stdout is "3.0.210928"
+    * Then stdout is "3.1.221230"
 
   Scenario: Long opt help.
     * Given arguments "--help"
