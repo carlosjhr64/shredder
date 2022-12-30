@@ -4,3 +4,5 @@ c2bf3927b875151360e55a0adc7f848f  pkg/shredder-1.0.0.gem
 9235cb56c134e1a0eca42e9dc0c9d34d  pkg/shredder-2.0.200126.gem
 # 3.0.210928 / 2021-09-28 14:11:43 -0700
 358be48f030d1a3c1cd403d5d051faa7  pkg/shredder-3.0.210928.gem
+# 3.1.221230 / 2022-12-30 09:10:10 -0800
+00fd5c591ba8bd6d52d5da3d69faf4cd  pkg/shredder-3.1.221230.gem
