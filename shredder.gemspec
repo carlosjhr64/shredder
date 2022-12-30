@@ -30,7 +30,7 @@ lib/shredder/stdio.rb
 lib/shredder/streams.rb
   )
   s.executables << 'shredder'
-  s.add_runtime_dependency 'help_parser', '~> 8.0', '>= 8.0.210917'
-  s.requirements << 'ruby: ruby 3.0.2p107 (2021-07-07 revision 0db68f0233) [x86_64-linux]'
+  s.add_runtime_dependency 'help_parser', '~> 8.1', '>= 8.1.221206'
+  s.requirements << 'ruby: ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [aarch64-linux]'
 
 end
